@@ -6,8 +6,10 @@ define("ROOT",dirname(__FILE__));
 define("CONF",ROOT.DS."configs".DS."def.php");
 
 // including conf and app and other basics
-include_once(CONF);
+include_once CONF;
 include_once APP;
+
+$app = new APP();
 
 
 
