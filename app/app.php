@@ -4,17 +4,17 @@ include_once ROOT.DS."configs".DS."def.php";
 
 class APP{
     
+    // default controller, method, parameters
     
-    
-    public $controller;
-    public $method;
-    public $parameters;
+    public $controller = "home";
+    public $method = "index";
+    public $parameters = [];
     
     public function __construct(){
         
         // getting url parameter and convert it to array
         
-        $url = $_GET["url"];
+        $url = isset($_GET["url"])? $_GET["url"]:"index/home";
         $url_array = $this->urlParse($url);
         
         // setting controller and model as string and array
@@ -26,8 +26,7 @@ class APP{
         
         
         
-        echo $this->controller.$this->method;
-        print_r($this->parameters);
+        
         
         
     }
@@ -53,7 +52,7 @@ class APP{
     
     public function load(){
        
-        include_once CONTROLLER.$this->controller;
+        include_once CONTROLLER.$this->controller.".php";
         
         if(class_exists($this->controller)){
             
@@ -64,8 +63,12 @@ class APP{
             if(method_exists($this->controller, $this->method)){
                 
                 // now we are calling method and passing paameters
+
+
                 
-                call_user_func_array($this->controller->this->method, $this->parameters);
+                
+
+                call_user_func_array([$this->controller,$this->method], $this->parameters);
             } else {
                 echo "There is no method as $this->method";
             }
