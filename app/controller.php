@@ -9,7 +9,13 @@ class controller{
             // include model
             include_once(MODEL.$modelName.".php");
             //instansiate model and return it
-            return new $modelName;
+
+            if(class_exists($modelName)){
+                return new $modelName;
+            }else{
+                echo "No Model found";
+            }
+            
             
             
         }else{
@@ -18,9 +24,11 @@ class controller{
     }
     
     // find view file pass data array. example: view("menu/links",$linkarray)
-    public function view($viewName,$arr = []){
+    public function view($viewName,$data){
         if(file_exists(VIEW.$viewName.".php")){
+            //echo VIEW.$viewName.".php"; die();
             include_once(VIEW.$viewName.".php");
+            
         }else{
             echo "No View Found.";
         }

@@ -1,5 +1,7 @@
 <?php
 
 class indexModel{
-    public $name = [9];
+    public function getName(){
+        return ["a",9];
+    }
 }
